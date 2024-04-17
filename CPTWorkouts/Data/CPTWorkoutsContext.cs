@@ -14,6 +14,16 @@ namespace CPTWorkouts.Data
         {
         }
 
-        public DbSet<CPTWorkouts.Models.Equipas> Equipas { get; set; } = default!;
+        public DbSet<Equipas> Equipas { get; set; }
+        public DbSet<Aulas> Aulas { get; set; }
+        public DbSet<Clientes> Clientes { get; set;}
+        public DbSet<Compram> Compram { get; set; }
+        public DbSet<Faturas> Faturas { get; set;}
+        public DbSet<Inscrevem_se> Inscrevem_se { get; set; }
+        public DbSet<Pertencem> Pertencem { get; set;}
+        public DbSet<Serviços> Serviços { get; set; }
+        public DbSet<Treinadores> Treinadores { get; set; }
+        public DbSet<Users> Users { get; set; }
+
     }
 }

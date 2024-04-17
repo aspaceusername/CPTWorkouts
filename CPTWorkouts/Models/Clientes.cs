@@ -4,6 +4,11 @@ namespace CPTWorkouts.Models
 {
     public class Clientes
     {
+        public Clientes() {
+            Equipas = new HashSet<Inscrevem_se> { };
+            Serviços = new HashSet<Compram> { };
+
+        }
         [Key]
         public int idClientes { get; set; }
         public string Nome { get; set; }

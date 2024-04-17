@@ -4,12 +4,21 @@ namespace CPTWorkouts.Models
 {
     public class Equipas
     {
+        public Equipas () {
+            Clientes = new HashSet<Inscrevem_se> ();
+            Treinadores = new HashSet<Pertencem> ();
+            Aulas = new HashSet<Aulas> ();
+        }
         [Key]
         public int Id { get; set; }
-
+        [StringLength(100)]
+        [Required(ErrorMessage = "Doit écrire un {0}")]
+        [Display(Name = "Nom")]
         public string Name { get; set; }
-
-        public string? Logotype { get; set; }
+            [StringLength(50)]
+            [Required(ErrorMessage = "Doit choisier un {0}")]
+            [Display(Name = "Image")]
+            public string? Logotype { get; set; }
 
 
         // relação M-N com clientes

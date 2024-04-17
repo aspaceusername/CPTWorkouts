@@ -3,13 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CPTWorkouts.Models
 {
+    [PrimaryKey(nameof(idClientesFK), nameof(idEquipasFK))]
     public class Inscrevem_se
     {
         
         public string nomeEquipas { get; set; }
-        [Key]
+        
         public int idClientesFK { get; set; }
-        [Key]
+        
         public int idEquipasFK { get; set; }
 
 

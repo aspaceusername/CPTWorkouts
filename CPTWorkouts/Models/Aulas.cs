@@ -4,6 +4,9 @@ namespace CPTWorkouts.Models
 {
     public class Aulas
     {
+        public Aulas() {
+            Treinadores = new HashSet<Treinadores>();
+        }
         [Key]
         public string Nome { get; set; }
         public DateOnly Data {  get; set; }
