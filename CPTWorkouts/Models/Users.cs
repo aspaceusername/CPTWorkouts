@@ -7,9 +7,9 @@ namespace CPTWorkouts.Models
         [Key]
         public int ID { get; set; }
 
-        public string Name { get; set; }
+        public string Nome { get; set; }
 
-        public DateOnly BirthDate { get; set; }
+        public DateOnly dataDeNascimento { get; set; }
 
     }
 }
