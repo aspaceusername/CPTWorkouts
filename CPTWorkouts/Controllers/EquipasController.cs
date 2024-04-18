@@ -7,16 +7,23 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CPTWorkouts.Data;
 using CPTWorkouts.Models;
+using System.Drawing;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace CPTWorkouts.Controllers
 {
     public class EquipasController : Controller
     {
         private readonly CPTWorkoutsContext _context;
-
-        public EquipasController(CPTWorkoutsContext context)
+        /// <summary>
+        /// um objecto que contem todos os dados do servidor
+        /// data from the environment of our server
+        /// </summary>
+        private readonly IWebHostEnvironment _iWebHostEnvironment;
+        public EquipasController(CPTWorkoutsContext context, IWebHostEnvironment iWebHostEnvironment)
         {
             _context = context;
+            _iWebHostEnvironment =  iWebHostEnvironment;
         }
 
         // GET: Equipas
@@ -56,10 +63,76 @@ namespace CPTWorkouts.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Name")] Equipas equipas, IFormFile LogoImage )
         {
+            /*Algoritmo
+             * We have a file?
+             * -no
+             * -> criar mensagem de erro
+             * --> retornar controlo para o view
+             * -yes
+             * -> é uma imagem?
+             * --> não: assign a default logo image to equipa
+             * --> sim: definir o nome da imagem
+             * ---> adicionar nome à base de dados
+             * ---> sabe the logo image on the disk drive
+             */
+
             if (ModelState.IsValid)
             {
+                //auxiliary vars para definir o nome da imagem logotipo das equipas
+                // vamos usar o viewid do utilizador (Guid) todos os utilizadores têm um
+                string logoName = "";
+                bool hasImage = false;
+
+                if (LogoImage == null)
+                {
+                    ModelState.AddModelError("",
+                        "No image provided"
+                        );
+                    return View(equipas);
+                }
+                else {
+                    //temos uma file mas é imagem??
+                    if (LogoImage.ContentType != "image/png" || LogoImage.ContentType != "image/jpeg") {
+                        //para verificar usamos o mime type
+                        //https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
+
+                        //não é imagem
+                        //logo vamos definir um default logo image to course
+                        equipas.Logotype = "noLogoEquipas.png";
+                    }
+                    else {
+                        //é uma imagem
+                        hasImage = true;
+
+                        //define logo's name
+                        Guid g = Guid.NewGuid();
+                        logoName = g.ToString().ToLowerInvariant();
+                        string extension=Path.GetExtension(LogoImage.FileName).ToLowerInvariant();
+                        logoName += extension;
+                        equipas.Logotype = logoName;
+                    }
+                }
                 _context.Add(equipas);
                 await _context.SaveChangesAsync();
+
+                // if we have an image, let's save it
+                if (hasImage){
+                    // define the place to store the logo's image
+                    string imageLocation = _iWebHostEnvironment.WebRootPath;
+                    // vou guardar num ficheiro, para organizar
+                    imageLocation = Path.Combine(imageLocation, "Imagens");
+                    // the folder imagens exists?
+                    if (!Directory.Exists(imageLocation))
+                    {
+                        Directory.CreateDirectory(imageLocation);
+                    }
+                    //add the image name to folder's location
+                    Path.Combine(imageLocation,logoName);
+                    //save file to server disc drive usando o ponteiro "stream", stream aponta para o ficheiro.
+                    using var stream = new FileStream(imageLocation,FileMode.Create);
+                    await LogoImage.CopyToAsync(stream);
+                }
+
                 return RedirectToAction(nameof(Index));
             }
             return View(equipas);

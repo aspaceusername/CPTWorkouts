@@ -9,6 +9,10 @@ namespace CPTWorkouts.Data
 {
     public class CPTWorkoutsContext : DbContext
     {
+        /// <summary>
+        /// 'database' of our application
+        /// </summary>
+        /// <param name="options"></param>
         public CPTWorkoutsContext (DbContextOptions<CPTWorkoutsContext> options)
             : base(options)
         {
