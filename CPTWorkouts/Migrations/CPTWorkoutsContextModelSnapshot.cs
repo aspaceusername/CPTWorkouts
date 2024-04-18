@@ -37,7 +37,7 @@ namespace CPTWorkouts.Migrations
 
                     b.HasIndex("EquipaId");
 
-                    b.ToTable("Aulas");
+                    b.ToTable("Aulas", (string)null);
                 });
 
             modelBuilder.Entity("CPTWorkouts.Models.Clientes", b =>
@@ -61,7 +61,7 @@ namespace CPTWorkouts.Migrations
 
                     b.HasKey("idClientes");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("Clientes", (string)null);
                 });
 
             modelBuilder.Entity("CPTWorkouts.Models.Compram", b =>
@@ -88,7 +88,7 @@ namespace CPTWorkouts.Migrations
 
                     b.HasIndex("servicoidServiço");
 
-                    b.ToTable("Compram");
+                    b.ToTable("Compram", (string)null);
                 });
 
             modelBuilder.Entity("CPTWorkouts.Models.Equipas", b =>
@@ -111,7 +111,7 @@ namespace CPTWorkouts.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Equipas");
+                    b.ToTable("Equipas", (string)null);
                 });
 
             modelBuilder.Entity("CPTWorkouts.Models.Faturas", b =>
@@ -137,7 +137,7 @@ namespace CPTWorkouts.Migrations
                     b.HasIndex("idCliente")
                         .IsUnique();
 
-                    b.ToTable("Faturas");
+                    b.ToTable("Faturas", (string)null);
                 });
 
             modelBuilder.Entity("CPTWorkouts.Models.Inscrevem_se", b =>
@@ -164,7 +164,7 @@ namespace CPTWorkouts.Migrations
 
                     b.HasIndex("EquipaId");
 
-                    b.ToTable("Inscrevem_se");
+                    b.ToTable("Inscrevem_se", (string)null);
                 });
 
             modelBuilder.Entity("CPTWorkouts.Models.Pertencem", b =>
@@ -191,7 +191,7 @@ namespace CPTWorkouts.Migrations
 
                     b.HasIndex("TreinadoridTreinadores");
 
-                    b.ToTable("Pertencem");
+                    b.ToTable("Pertencem", (string)null);
                 });
 
             modelBuilder.Entity("CPTWorkouts.Models.Serviços", b =>
@@ -211,7 +211,7 @@ namespace CPTWorkouts.Migrations
 
                     b.HasKey("idServiço");
 
-                    b.ToTable("Serviços");
+                    b.ToTable("Serviços", (string)null);
                 });
 
             modelBuilder.Entity("CPTWorkouts.Models.Treinadores", b =>
@@ -232,7 +232,7 @@ namespace CPTWorkouts.Migrations
 
                     b.HasIndex("AulasNome");
 
-                    b.ToTable("Treinadores");
+                    b.ToTable("Treinadores", (string)null);
                 });
 
             modelBuilder.Entity("CPTWorkouts.Models.Users", b =>
@@ -252,7 +252,7 @@ namespace CPTWorkouts.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("CPTWorkouts.Models.Aulas", b =>

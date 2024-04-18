@@ -16,8 +16,6 @@ namespace CPTWorkouts.Models
         [Display(Name = "Nom")]
         public string Name { get; set; }
             [StringLength(50)]
-            [Required(ErrorMessage = "Doit choisier un {0}")]
-            [Display(Name = "Image")]
             public string? Logotype { get; set; }
 
 
