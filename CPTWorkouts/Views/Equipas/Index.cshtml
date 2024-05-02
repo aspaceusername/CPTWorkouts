@@ -35,10 +35,17 @@
                     title="" when you hover an image, it will display the title
                 *@
 
-                <img src="~/Images/@Html.DisplayFor(modelItem => item.Logotype)" 
+                <img src="~/Images/@Html.DisplayFor(modelItem =>item.Logotype)"
                 alt="Logo of Course @Html.DisplayFor(modelItem => item.Name)"
                 title="@Html.DisplayFor(modelItem => item.Name)"
                 width="100px" 
+                />
+                <br/>
+                @*Another way to access images is to just use item since we are using a foreach*@
+                <img src="~/Images/@item.Logotype" 
+                alt="Logo of Course @item.Name"
+                title="@item.Name"
+                width="100px"
                 />
             </td>
             <td>

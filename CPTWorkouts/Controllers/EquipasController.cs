@@ -29,12 +29,12 @@ namespace CPTWorkouts.Controllers
         // GET: Equipas
         public async Task<IActionResult> Index()
         {
-            //procura por equipas na database
-            //vai retornar ao view as equipas numa lista
+            //procura por equipa na database
+            //vai retornar ao view as equipa numa lista
             //SELECT *
             //FROM courses
             //ORDER by name
-            //estamos a selecionar as equipas e fazer uma lista
+            //estamos a selecionar as equipa e fazer uma lista
             //e representa cada registo, é como escrever f(x) é só uma variável
             // e=>e, a primeira letra representa todos os registos na tabela, e de todos os registos escolhemos um "e=>e" e depois tiramos lhe o atributo "e=>e.Name"
             return View(await _context.Equipas.OrderBy(e=>e.Name).ToListAsync());
@@ -70,7 +70,7 @@ namespace CPTWorkouts.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name")] Equipas equipas, IFormFile LogoImage )
+        public async Task<IActionResult> Create([Bind("Name")] Equipas equipa, IFormFile LogoImage )
         {
             /*Algoritmo
              * We have a file?
@@ -87,7 +87,7 @@ namespace CPTWorkouts.Controllers
 
             if (ModelState.IsValid)
             {
-                //auxiliary vars para definir o nome da imagem logotipo das equipas
+                //auxiliary vars para definir o nome da imagem logotipo das equipa
                 // vamos usar o viewid do utilizador (Guid) todos os utilizadores têm um
                 string logoName = "";
                 bool hasImage = false;
@@ -97,17 +97,17 @@ namespace CPTWorkouts.Controllers
                     ModelState.AddModelError("",
                         "No image provided"
                         );
-                    return View(equipas);
+                    return View(equipa);
                 }
                 else {
                     //temos uma file mas é imagem??
-                    if (LogoImage.ContentType != "image/png" || LogoImage.ContentType != "image/jpeg") {
+                    if (LogoImage.ContentType != "image/png" && LogoImage.ContentType != "image/jpeg") {
                         //para verificar usamos o mime type
                         //https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
 
                         //não é imagem
                         //logo vamos definir um default logo image to course
-                        equipas.Logotype = "noLogoEquipas.png";
+                        equipa.Logotype = "noLogoEquipas.png";
                     }
                     else {
                         //é uma imagem
@@ -118,10 +118,10 @@ namespace CPTWorkouts.Controllers
                         logoName = g.ToString().ToLowerInvariant();
                         string extension=Path.GetExtension(LogoImage.FileName).ToLowerInvariant();
                         logoName += extension;
-                        equipas.Logotype = logoName;
+                        equipa.Logotype = logoName;
                     }
                 }
-                _context.Add(equipas);
+                _context.Add(equipa);
                 await _context.SaveChangesAsync();
 
                 // if we have an image, let's save it
@@ -129,14 +129,14 @@ namespace CPTWorkouts.Controllers
                     // define the place to store the logo's image
                     string imageLocation = _iWebHostEnvironment.WebRootPath;
                     // vou guardar num ficheiro, para organizar
-                    imageLocation = Path.Combine(imageLocation, "Imagens");
+                    imageLocation = Path.Combine(imageLocation, "Images");
                     // the folder imagens exists?
                     if (!Directory.Exists(imageLocation))
                     {
                         Directory.CreateDirectory(imageLocation);
                     }
                     //add the image name to folder's location
-                    Path.Combine(imageLocation,logoName);
+                    imageLocation = Path.Combine(imageLocation,logoName);
                     //save file to server disc drive usando o ponteiro "stream", stream aponta para o ficheiro.
                     using var stream = new FileStream(imageLocation,FileMode.Create);
                     await LogoImage.CopyToAsync(stream);
@@ -144,7 +144,7 @@ namespace CPTWorkouts.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
-            return View(equipas);
+            return View(equipa);
         }
 
         // GET: Equipas/Edit/5
