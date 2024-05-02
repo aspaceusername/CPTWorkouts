@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using CPTWorkouts.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+
+
 
 namespace CPTWorkouts.Data
 {
-    public class CPTWorkoutsContext : DbContext
+    public class CPTWorkoutsContext : IdentityDbContext<IdentityUser, IdentityRole, string>
     {
         /// <summary>
         /// 'database' of our application
@@ -16,6 +20,12 @@ namespace CPTWorkouts.Data
         public CPTWorkoutsContext (DbContextOptions<CPTWorkoutsContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            // builder.Entity<IdentityUser>().HasData()
         }
 
         public DbSet<Equipas> Equipas { get; set; }

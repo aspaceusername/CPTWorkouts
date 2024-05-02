@@ -29,7 +29,16 @@ namespace CPTWorkouts.Controllers
         // GET: Equipas
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Equipas.ToListAsync());
+            //procura por equipas na database
+            //vai retornar ao view as equipas numa lista
+            //SELECT *
+            //FROM courses
+            //ORDER by name
+            //estamos a selecionar as equipas e fazer uma lista
+            //e representa cada registo, é como escrever f(x) é só uma variável
+            // e=>e, a primeira letra representa todos os registos na tabela, e de todos os registos escolhemos um "e=>e" e depois tiramos lhe o atributo "e=>e.Name"
+            return View(await _context.Equipas.OrderBy(e=>e.Name).ToListAsync());
+            // This command is written in LINQ
         }
 
         // GET: Equipas/Details/5
