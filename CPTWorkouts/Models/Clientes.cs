@@ -15,6 +15,9 @@ namespace CPTWorkouts.Models
         public DateOnly dataDeNascimento { get; set; }
         public string dadosPessoais { get; set; }
 
+        //vou adicionar um atributo decimal para efeitos das aulas
+        public decimal Fee { get; set; }
+
         // relação 1-1 com faturas
         public Faturas Fatura { get; set; }
 
