@@ -1,4 +1,14 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using CPTWorkouts.Data;
+using Microsoft.AspNetCore.Identity;
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<CPTWorkoutsContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CPTWorkoutsContext") ?? throw new InvalidOperationException("Connection string 'CPTWorkoutsContext' not found.")));
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddEntityFrameworkStores<CPTWorkoutsContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

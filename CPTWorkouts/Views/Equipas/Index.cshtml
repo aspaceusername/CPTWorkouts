@@ -1,0 +1,59 @@
+﻿@*IEnumerable é uma lista que não anda para trás, depois de se lêr o primeiro elemento não se pode voltar a lêr o primeiro. começa no primeiro e vai até ao fim*@
+@model IEnumerable<CPTWorkouts.Models.Equipas>
+
+@{
+    ViewData["Title"] = "Equipas";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Logotype)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @*we will display the image to the user, we fetch the stored path that we created in the controller and place it in the img tag source
+                    alt="" displays a message when the image doesn't load, but it also
+                    title="" when you hover an image, it will display the title
+                *@
+
+                <img src="~/Images/@Html.DisplayFor(modelItem =>item.Logotype)"
+                alt="Logo of Course @Html.DisplayFor(modelItem => item.Name)"
+                title="@Html.DisplayFor(modelItem => item.Name)"
+                width="100px" 
+                />
+                <br/>
+                @*Another way to access images is to just use item since we are using a foreach*@
+                <img src="~/Images/@item.Logotype" 
+                alt="Logo of Course @item.Name"
+                title="@item.Name"
+                width="100px"
+                />
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
