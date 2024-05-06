@@ -6,6 +6,9 @@ namespace CPTWorkouts.Models
     {
         [Key]
         public int idTreinadores { get; set; }
+        ///<summary>
+        /// Nome do Treinador
+        ///</summary>
         public int Nome { get; set; }
     }
 }

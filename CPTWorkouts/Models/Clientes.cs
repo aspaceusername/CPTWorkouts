@@ -11,8 +11,17 @@ namespace CPTWorkouts.Models
         }
         [Key]
         public int idClientes { get; set; }
+        /// <summary>
+        /// define o nome do cliente
+        /// </summary>
         public string Nome { get; set; }
+        /// <summary>
+        /// define a data de nascimento do cliente
+        /// </summary>
         public DateOnly dataDeNascimento { get; set; }
+        /// <summary>
+        /// atributo com nome placeholder para dados pessoais
+        /// </summary>
         public string dadosPessoais { get; set; }
 
         //vou adicionar um atributo decimal para efeitos das aulas

@@ -7,9 +7,18 @@ namespace CPTWorkouts.Models
     {
         [Key]
         public int Id { get; set; }
+        ///<summary>
+        /// Chave estrangeira correspondente à tabela dos Clientes
+        ///</summary>
         [ForeignKey("Cliente")]
         public int idCliente { get; set; }
-        public string Serviços { get; set; }
+        ///<summary>
+        /// Chave estrangeira correspondente aos serviços vendidos ao Cliente
+        ///</summary>
+        public string serviçosFK { get; set; }
+        ///<summary>
+        /// Valor de cada serviço adquirido pelo cliente
+        ///</summary>
         public int Valor {  get; set; }
 
         // relação 1-1 com Clientes
