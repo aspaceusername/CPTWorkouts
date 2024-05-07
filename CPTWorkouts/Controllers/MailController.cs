@@ -1,5 +1,5 @@
 ﻿using CPTWorkouts.Models;
-using CPTWorkouts.Services;
+using CPTWorkouts.Services.Mail;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

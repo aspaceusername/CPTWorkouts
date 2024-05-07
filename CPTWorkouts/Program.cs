@@ -4,7 +4,7 @@ using CPTWorkouts.Data;
 using Microsoft.AspNetCore.Identity;
 using CPTWorkouts.Models;
 using System.Configuration;
-using CPTWorkouts.Services;
+using CPTWorkouts.Services.Mail;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +16,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.Sign
 
 builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
 
-builder.Services.AddTransient<IMailService, CPTWorkouts.Services.MailService>();
+builder.Services.AddTransient<IMailService, MailService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
+using CPTWorkouts.Models;
+using CPTWorkouts.Services.MBWayPagamentos;
 using Microsoft.AspNetCore.Mvc;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace CPTWorkouts.Controllers.API
 {
@@ -9,40 +13,22 @@ namespace CPTWorkouts.Controllers.API
     [ApiController]
     public class APIMBWAY : ControllerBase
     {
-        private readonly HttpClient _httpClient;
+        
 
-        public APIMBWAY(IHttpClientFactory httpClientFactory)
+        [HttpGet]
+        [Route("CreatePagamentoMB")]
+       public async Task<IActionResult> CreatePagamentoMB([FromQuery] decimal preco, [FromQuery] string telemovel)
         {
-            _httpClient = httpClientFactory.CreateClient();
-        }
+            var respostaJson = await MBWayPagamentos.MBWayPay(preco, telemovel);
+            MBWay resposta = JsonSerializer.Deserialize<MBWay>(respostaJson);
+            resposta.EstadoMbWay = EstadoMbWay.Pendente;
+            resposta.customerPhone = telemovel;
+            resposta.amount = preco;
+            //criar na base de dados algo do tipo MBWay que guarde a transactionStatus, transactionID e a reference.
+            //A ideia é através da transactionID conseguir "recriar" a compra.
+            //Utilizar Fatura.cs
 
-        [HttpPost]
-        public async Task<ActionResult> pagarMBWAY()
-        {
-            // Prepare the request body
-            var requestBody = "{\"payment\": {\"amount\": {\"currency\": \"EUR\"}}}";
-
-            // Prepare the request content
-            var requestContent = new StringContent(requestBody, System.Text.Encoding.UTF8, "application/json");
-
-            // Make the POST request
-            var response = await _httpClient.PostAsync("https://sandbox.eupago.pt/api/v1.02/mbway/create", requestContent);
-
-            // Check if the request was successful
-            if (response.IsSuccessStatusCode)
-            {
-                // Optionally, you can handle the response here
-                // For example, you might want to read the response body:
-                // var responseBody = await response.Content.ReadAsStringAsync();
-
-                // Return an Ok response
-                return Ok();
-            }
-            else
-            {
-                // If the request was not successful, return a failure status code
-                return StatusCode((int)response.StatusCode);
-            }
+            return Ok("");
         }
     }
 }

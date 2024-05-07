@@ -38,6 +38,7 @@ namespace CPTWorkouts.Data
         public DbSet<Serviços> Serviços { get; set; }
         public DbSet<Treinadores> Treinadores { get; set; }
         public DbSet<Users> Users { get; set; }
+        public DbSet<MBWay> MBWay { get; set; }
 
     }
 }

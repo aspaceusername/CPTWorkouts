@@ -1,6 +1,6 @@
 ﻿using CPTWorkouts.Models;
 
-namespace CPTWorkouts.Services
+namespace CPTWorkouts.Services.Mail
 {
     public interface IMailService
     {
