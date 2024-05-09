@@ -48,7 +48,7 @@ namespace CPTWorkouts.Models
         // mas e se o utilizador nao meter country code, fica obrigado a meter 2 digitos a mesma
         // (+|00)?[0-9]{2,5}[0-9]{7-10}
         // (+|00)?[0-9]{7,15}
-        [RegularExpression("(+|00)?[0-9]{7,15}",
+        [RegularExpression("([+]|00)?[0-9]{7,15}",
                             ErrorMessage = "Please write a valid cell phone number")]
         public string CellPhone {  get; set; }
 
