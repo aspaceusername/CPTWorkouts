@@ -4,6 +4,7 @@ namespace CPTWorkouts.Models
 {
     /// <summary>
     /// atributos para todos os utilizadores
+    /// corresponde a appusers do professor
     /// </summary>
     public class Users
     {

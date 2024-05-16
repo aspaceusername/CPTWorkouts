@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+// correspondente a classe students do professor
 
 namespace CPTWorkouts.Models
 {
@@ -24,7 +26,15 @@ namespace CPTWorkouts.Models
         /// </summary>
         public string dadosPessoais { get; set; }
 
-        //vou adicionar um atributo decimal para efeitos das aulas
+        [NotMapped] // não queremos este atributo na base de dados, em vez de fazermos uma DTO só por um atributo, usamos esta tag.
+        [Display(Name = "Fee")]
+        [StringLength(9)]
+        [Required(ErrorMessage = "The {0] is required")]
+        [RegularExpression("[0-9]{1,6}([,.][0-9]{1,2})?", ErrorMessage = "Write a number. Max 2 decimal digits.")]
+        public string FeeAux { get; set; }
+        /// <summary>
+        /// fee to be paid by student at enrollment
+        /// </summary>
         public decimal Fee { get; set; }
 
         // relação 1-1 com faturas
